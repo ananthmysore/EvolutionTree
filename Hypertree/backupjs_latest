@@ -1,0 +1,30 @@
+function init(sucessData){
+    // init data
+    jQuery.support.cors = true;
+
+    $.ajax({
+        // Add code for Cross Domain
+        // headers: getHeaders(),
+        type: "POST", //GET or POST or PUT or DELETE verb
+        url:'http://192.168.2.23:3000/fetch_repos', // Location of the service
+        data: '{"organization_name":"Qwinix"}', //Data sent to server
+        contentType: 'application/json', // content type sent to server
+        dataType: 'json', //Expected data format from server
+        processdata: true, //True or False
+        crossDomain: true,
+        timeout: 600000,
+        success: sucessData = function () {// When Service call fails
+            alert('success');
+        },
+        error: function(xhr){
+            alert("Am here");
+            var jsn_data = JSON.parse(xhr.responseText);
+            console.log(jsn_data.content);
+        }
+    });
+
+    
+
+
+
+}
