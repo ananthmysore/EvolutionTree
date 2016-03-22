@@ -1,74 +1,3 @@
-// $(document).ready(function(){
-// var xhr = new XMLHttpRequest();
-// xhr.setHeader("Access-Control-Allow-Origin:", "http://192.168.2.23:3000/fetch_repos");
-// xhr.setHeader("Access-Control-Allow-Methods", "GET, POST,PUT");
-// xhr.open('POST', 'http://192.168.2.23:3000/fetch_repos', false);
-// xhr.send();
-// xhr.responseText;
-
-// $.ajax({
-//   type: 'POST',
-//   url: 'http://192.168.2.23:3000/fetch_repos',
-//   data: JSON.stringify(['{"organization_name":"Qwinix"}']),
-//   contentType: "application/json; charset=utf-8",
-//   success:  function(data){
-//        var abc = $.parseJSON(data); // create an object with the key of the array
-//        alert(abc.html); // where html is the key of array that you want, $response['html'] = "<a>something..</a>";
-//    },
-//   contentType: "application/json; charset=utf-8",
-//   dataType:'json'
-// });
-
-
-        // $.ajax(
-        //     {
-        //         accepts: {
-        //             json: "application/json"
-        //         }
-        //         , type: "POST"
-        //         ,headers: { 
-        //                     "Accept" : "application/json"
-        //                     }
-        //         , contentType : "application/json"
-        //         , url: 'http://192.168.2.23:3000/fetch_repos'
-        //         , async: false
-        //         , cache: false
-        //         , crossDomain: false
-        //         , data: JSON.stringify(['{"organization_name":"Qwinix"}'])
-        //         , dataType: "json"
-        //         , global: false
-        //         , ifModified: false
-        //         , timeout: 500000
-        //         , beforeSend: function(jqXHR) {
-        //             jqXHR.overrideMimeType('application/json');
-        //             // jqXHR.setHeader("Access-Control-Allow-Origin:", "http://192.168.2.23:3000/fetch_repos");
-        //             jqXHR.setRequestHeader("Access-Control-Allow-Origin", '*');
-        //             jqXHR.setRequestHeader("Access-Control-Allow-Headers", "Content-Type, Accept");
-        //             jqXHR.setRequestHeader("Access-Control-Allow-Methods","POST, GET");
-        //         }
-        //     }
-        // )
-
-
-
-// $.ajax({
-//  type: "POST",
-//  crossDomain: true,
-//   dataType: "json", // jsonp
-//   url: 'http://192.168.2.23:3000/initial_details',
-//  data: '{"organization_name":"Qwinix"}',
-//  success: function(xhr) {
-//     alert(xhr.responseText);
-//  },
-//  error: function() {
-//     alert("Am here");
-//  }
-// });
-
-
-
-jQuery.support.cors = true;
-
 var labelType, useGradients, nativeTextSupport, animate;
 
 (function() {
@@ -97,39 +26,38 @@ var Log = {
 };
 
 
-function init(){
+function init(xhr){
     //init data
-    // jQuery.support.cors = true;
-    //  $.ajax({
-    //     // Add code for Cross Domain
-    //     // headers: getHeaders(),
-    //     type: "POST", //GET or POST or PUT or DELETE verb
-    //     url:'http://192.168.2.90:3000/initial_details', // Location of the service
-    //     data: '{"organization_name":"Qwinix"}', //Data sent to server
-    //     contentType: 'application/json', // content type sent to server
-    //     dataType: 'json', //Expected data format from server
-    //     processdata: true, //True or False
-    //     crossDomain: true,
-    //     timeout: 600000,
-    //     success: function (xhr) {// When Service call fails
-    //         // var jsn_data = JSON.parse(xhr.responseText);
-    //         // console.log(jsn_data.content);
-    //         console.log(xhr);
-    //     },
-    //     error: function(xhr){
-    //         alert("Am here");
-    //         var jsn_data = xhr.responseText;
-    //         console.log(jsn_data);
-    //     }
-    // });
+    var jsn = {};
+    jQuery.support.cors = true;
+     $.ajax({
+        // Add code for Cross Domain
+        headers: {
+          'Content-Type':'application/json'
+        },
+        url:"http://192.168.2.90:3000/initial_details", // Location of the service
+        type: "POST", //GET or POST or PUT or DELETE verb
+        data: '{"organization_name":"Qwinix"}', //Data sent to server
+        dataType: "json", //Expected data format from server
+        processdata: false, //True or False
+        crossDomain: true,
+        timeout: 600000000,
+        success: function(xhr) {
+          alert(xhr.status);
+            // jsn_data = xhr.responseText;
+            // jsn_string = JSON.stringify(data);
+            // jsn = JSON.parse(jsn_string);
+            // console.log(typeof(jsn));
+            // console.log(jsn);
+        },
+        error: function(xhr){
+          alert("I am here");
+            alert(xhr.status);
+        }
+    });
 
-
-
-}
-
-// });
-    
-    
+    // var json = xhr.responseText;
+    //end
     var infovis = document.getElementById('infovis');
     var w = infovis.offsetWidth - 50, h = infovis.offsetHeight - 50;
     
@@ -210,9 +138,9 @@ function init(){
       }
     });
     //load JSON data.
-    ht.loadJSON(json);
+    ht.loadJSON(jsn);
     //compute positions and plot.
     ht.refresh();
     //end
-    ht.controller.onComplete();
-// }
+    // ht.controller.onComplete();
+}
