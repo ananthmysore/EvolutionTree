@@ -26,16 +26,29 @@ var Log = {
 };
 
 
-function init(xhr){
+function init(){
     //init data
     var jsn = {};
     jQuery.support.cors = true;
+//     $.ajax({
+//     type: "POST",
+//     url: "http://localhost:3000/initial_details",
+//     // The key needs to match your method's input parameter (case-sensitive).
+//     data: '{"organization_name":"Qwinix"}',
+//     contentType: "application/json; charset=utf-8",
+//     dataType: "json",
+//     crossDomain: true,
+//     success: function(data){alert(data);},
+//     error: function(jqXHR, textStatus, errorThrown) {
+//     console.log(textStatus, errorThrown);
+//   }
+// });
      $.ajax({
         // Add code for Cross Domain
         headers: {
           'Content-Type':'application/json'
         },
-        url:"http://192.168.2.90:3000/initial_details", // Location of the service
+        url:"http://localhost:3000/initial_details", // Location of the service
         type: "POST", //GET or POST or PUT or DELETE verb
         data: '{"organization_name":"Qwinix"}', //Data sent to server
         dataType: "json", //Expected data format from server
@@ -43,16 +56,13 @@ function init(xhr){
         crossDomain: true,
         timeout: 600000000,
         success: function(xhr) {
-          alert(xhr.status);
-            // jsn_data = xhr.responseText;
             // jsn_string = JSON.stringify(data);
             // jsn = JSON.parse(jsn_string);
             // console.log(typeof(jsn));
-            // console.log(jsn);
+            // console.log(jsn_data);
         },
-        error: function(xhr){
-          alert("I am here");
-            alert(xhr.status);
+        error: function(jqXHR, textStatus, errorThrown) {
+            console.log(textStatus, errorThrown);
         }
     });
 
